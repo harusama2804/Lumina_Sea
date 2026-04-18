@@ -2165,8 +2165,6 @@
             <button class="btn-main"
                 style="background: linear-gradient(45deg, #f39c12, #d35400) !important; border:none !important;"
                 onclick="openDictionary()">📖 Từ Điển</button>
-
-            <button class="btn-main btn-bday" onclick="openModal('bday-overlay')">🎁 Cá Sinh Nhật</button>
             <button class="btn-main" onclick="spawnShark()"
                 style="background: linear-gradient(45deg, #ff4757, #8b0000); border:none;">🦈 Thả Cá Mập</button>
             <button class="btn-main" onclick="clearSave()"
@@ -2455,8 +2453,6 @@
                 ✨ <b>Món quà độc bản:</b> Một sinh mệnh huyền thoại rực rỡ vừa thức tỉnh để dành riêng cho em. Hãy dang
                 tay đón nhận nhé! 🌊
             </div>
-
-            <button class="btn-main bday-btn" onclick="claimBdayGift()">✨ NHẬN CÁ SINH NHẬT ✨</button>
         </div>
     </div>
 
@@ -2586,10 +2582,7 @@
                 type: "Megalodon Bạo Chúa", rarity: "Huyền thoại", shape: "fish", flockStyle: "independent", colors: ["#696969", "#000000"], speed: 3.0, scale: 3.5,
                 desc: "Bóng ma tiền sử với hàm răng nghiền nát vạn vật. Di chuyển cô độc lầm lì, tạo áp lực cho cả vùng biển. Mặc cho cái mác bạo chúa, trong hồ này nó lại ngoan ngoãn gặm Cám viên đắt tiền (2💎)."
             },
-            {
-                type: "Cá Sinh Nhật 🎂", rarity: "Huyền thoại", shape: "fish", flockStyle: "independent", colors: ["#FF1493", "#FFD700"], speed: 2.2, scale: 2.5,
-                desc: "Thực thể ma thuật chỉ xuất hiện vào các dịp hệ trọng. Thân hình tỏa hương bánh kem, rắc đầy kim tuyến lấp lánh. Lượn lờ điệu đà một mình khắp hồ để xin Cám (2💎)."
-            },
+        
 
             // --- HỌ CÁ ĐUỐI ---
             {
@@ -4415,154 +4408,7 @@
                     // ==========================================
 
                 }
-                else if (this.data.type === "Cá Sinh Nhật 🎂") {
-                    // 🎂 [SIÊU PHẨM CHÂN THỰC & MƯỢT MÀ] CÁ ÔNG TIÊN HỒNG ĐEO NÓN 🥳 🎂
-                    // Dựa trên ảnh tham khảo: hình dạng dẹt, vây dài, màu hồng tươi.
-
-                    let t = Date.now() * 0.002; // Biến thời gian chung
-                    let swimA = Math.sin(this.swimCycle * 1.5); // Nhịp bơi chính
-                    let bodyWobble = swimA * 1.2; // Thân lắc lư nhẹ
-
-                    // 1. TẮT SHADOW ĐỂ TỐI ƯU HIỆU SUẤT
-                    ctx.shadowBlur = 0;
-
-                    // ----------------------------------------------------------------------
-                    // 2. VẼ THÂN CÁ ÔNG TIÊN (Angelfish Body Path - Chân thực)
-                    // Cấu trúc thân hình tam giác dẹt, mõm nhọn đặc trưng.
-
-                    ctx.fillStyle = "white"; // Lớp nền
-                    let angelfishBody = new Path2D();
-                    angelfishBody.moveTo(38, -5); // Mõm
-                    // Đường lưng (Cong cao lên vây lưng)
-                    angelfishBody.bezierCurveTo(25, -20, 0, -28 - bodyWobble, -10, -25 - bodyWobble);
-                    // Đường sau thân (Gốc vây)
-                    angelfishBody.quadraticCurveTo(-20, -10 - bodyWobble, -25, -6 - bodyWobble);
-                    // Đường bụng (Cong thấp xuống vây hậu môn)
-                    angelfishBody.bezierCurveTo(-15, 20 - bodyWobble, 10, 32, 25, 28);
-                    // Nối về mõm
-                    angelfishBody.quadraticCurveTo(35, 15, 38, -5);
-
-                    // Gradient pearlescent phập phồng màu hồng/trắng giống ảnh
-                    let bodyGrad = ctx.createLinearGradient(38, 0, -25, 0);
-                    bodyGrad.addColorStop(0, "#ffffff"); // Đầu trắng
-                    bodyGrad.addColorStop(0.3, "#ffb6c1"); // Thân hồng nhạt pearlescent
-                    bodyGrad.addColorStop(0.7, "#FF69B4");   // Thân hồng tươi
-                    bodyGrad.addColorStop(1, "#FF1493");   // Gốc vây hồng đậm
-
-                    ctx.fillStyle = bodyGrad;
-                    ctx.fill(angelfishBody);
-
-
-                    // ----------------------------------------------------------------------
-                    // 3. [TÓE ĐẸP] VÂY CÁ ÔNG TIÊN (Realistic Long Fins)
-                    // Vây lưng và vây hậu môn rất dài, thướt tha.
-
-                    ctx.save();
-                    ctx.translate(-22, -bodyWobble); // Attachment point tapered tap body tapping tapped tap tapped tap tapered tap end tap
-                    ctx.rotate(swimA * 0.2); // Wag angle
-
-                    let finColorBase = "rgba(255, 255, 255, 0.55)"; // White transparent veil White veil White veil
-                    let finColorVeil = "rgba(255, 105, 180, 0.55)"; // Pink transparent veil Pink veil Pink veil
-
-                    // Vây Lưng (Long Dorsal Fin - Giống ảnh)
-                    ctx.fillStyle = finColorVeil;
-                    ctx.beginPath();
-                    ctx.moveTo(10, -25);
-                    ctx.bezierCurveTo(10, -50, 0, -65, -15, -75); // Long thướt tha
-                    ctx.bezierCurveTo(-5, -55, 10, -45, 10, -25);
-                    ctx.fill();
-
-                    // Vây Hậu Môn (Long Anal Fin - Giống ảnh)
-                    ctx.fillStyle = finColorVeil;
-                    ctx.beginPath();
-                    ctx.moveTo(10, 25);
-                    ctx.bezierCurveTo(10, 50, 0, 65, -15, 75); // Long thướt tha
-                    ctx.bezierCurveTo(-5, 55, 10, 45, 10, 25);
-                    ctx.fill();
-
-                    // Vây Đuôi (Tail Fin - Forked Veiltail, xòe rộng nhưng gọn)
-                    ctx.fillStyle = finColorBase;
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.bezierCurveTo(-20, -35, -50, -45 + swimA * 10, -80, swimA * 15 + 15); // Tóe lên 1 bên
-                    ctx.bezierCurveTo(-50, -5, -20, -15, 0, 0);
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.bezierCurveTo(-20, 35, -50, 45 - swimA * 10, -80, swimA * 15 - 15); // Tóe xuống 1 bên
-                    ctx.bezierCurveTo(-50, 5, -20, 15, 0, 0);
-                    ctx.fill();
-
-                    // Vẽ tia vây mỏng manh (realistic detailed internal lines detailed details)
-                    ctx.strokeStyle = "rgba(255,255,255,0.22)"; ctx.lineWidth = 1;
-                    // Upper detailed lines detailed structural detailed detail detailed detail detail lines detailed structural detail detailed detail lines detail structural logic logic logic
-                    for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(-50, -10 - i * 11, -80, swimA * 15 + 15 - i * 3); ctx.stroke(); }
-                    // Lower detailed lines detailed structural detailed detail detailed detail detail lines detailed structural detail detailed detail lines detail structural logic logic logic
-                    for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(-50, 10 + i * 11, -80, swimA * 15 - 15 + i * 3); ctx.stroke(); }
-
-                    ctx.restore();
-
-
-                    // ----------------------------------------------------------------------
-                    // 4. [MỚI] NÓN SINH NHẬT DỄ THƯƠNG (Birthday Cone Hat 🥳)
-                    // Gắn trên trán dễ thương.
-
-                    ctx.save();
-                    let hatWobble = Math.sin(t * 3) * 0.1; // Nón cũng rung rinh
-                    ctx.translate(18, -17 + bodyWobble * 0.5); // Gắn trên trán dẹt đặc trưng
-                    ctx.rotate(hatWobble);
-
-                    ctx.shadowBlur = 12;
-                    ctx.shadowColor = `hsla(${(t * 60) % 360}, 100%, 75%, 0.9)`;
-
-                    // Vẽ thân nón (Cone)
-                    let hatGrad = ctx.createLinearGradient(-8, 0, 8, 0);
-                    hatGrad.addColorStop(0, "#00ced1"); // Teal
-                    hatGrad.addColorStop(1, "#32CD32"); // Lime Green
-
-                    ctx.fillStyle = hatGrad;
-                    ctx.beginPath();
-                    ctx.moveTo(-8, 0); // Đáy nón
-                    ctx.quadraticCurveTo(0, 4, 8, 0); // Đáy nón cong nhẹ
-                    ctx.lineTo(0, -22); // Đỉnh nón
-                    ctx.closePath();
-                    ctx.fill();
-
-                    // Đính chấm kim tuyến DOTS dots dots dots dots logic logic logic
-                    ctx.fillStyle = "white";
-                    ctx.beginPath(); ctx.arc(0, -10, 1.2, 0, Math.PI * 2); ctx.fill();
-                    ctx.beginPath(); ctx.arc(-4, -5, 1, 0, Math.PI * 2); ctx.fill();
-                    ctx.beginPath(); ctx.arc(4, -5, 1, 0, Math.PI * 2); ctx.fill();
-
-                    // Cục bông tassel tassel tassel tassel tassel logic logic logic
-                    ctx.fillStyle = `hsla(${(t * 90) % 360}, 100%, 85%, 1)`;
-                    ctx.beginPath(); ctx.arc(0, -22, 3 + Math.sin(t * 5) * 1, 0, Math.PI * 2); ctx.fill();
-                    ctx.restore();
-
-
-                    // ----------------------------------------------------------------------
-                    // 5. MẮT CÁ CUTIE SAPPHIRE LONG LANH (Chân thực)
-                    // Mắt to đặc trưng của Angelfish
-
-                    ctx.shadowBlur = 0; // Tắt shadow cho mắt sắc nét
-                    ctx.beginPath(); ctx.arc(20, -4 + bodyWobble * 0.2, 4.8, 0, Math.PI * 2); ctx.fillStyle = "white"; ctx.fill(); // Tròng trắng
-
-                    // Sapphire xanh biển rực rỡ Sapphire Sapp factor Sapphire factor Sapphire logic factor factor factor Sapphire Sapphire Sapphire Sapp factors factor factor logic factor factor factor factor logic logic logic factors logic factors factor factors logic factor factors logic factor factor factors logic logic
-                    ctx.beginPath(); ctx.arc(21, -4 + bodyWobble * 0.2, 2.8, 0, Math.PI * 2); ctx.fillStyle = "#00f3ff"; ctx.fill();
-
-                    // Catchlight larger factor larger larger larger factor logic logic logic
-                    ctx.fillStyle = "white"; ctx.beginPath(); ctx.arc(21.7, -4.7 + bodyWobble * 0.2, 1, 0, Math.PI * 2); ctx.fill();
-
-
-                    // ----------------------------------------------------------------------
-                    // 6. RẢI KIM TUYẾN PINK & GOLD (Giảm tần suất tối ưu)
-                    if (Math.random() < 0.1) {
-                        if (typeof particles !== 'undefined') {
-                            let pColor = Math.random() < 0.5 ? "rgba(255, 105, 180, 0.8)" : "#FFD700";
-                            particles.push(new Particle(this.x - Math.random() * 30, this.y + (Math.random() * 20 - 10), pColor, true));
-                        }
-                    }
-                }
+                
                 else if (shape === "squid") {
                     // 🦑 MỰC CHIBI (Torpedo shape - Tối ưu hiệu năng)
 
